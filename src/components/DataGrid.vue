@@ -11,7 +11,12 @@
       <div class="data-grid_content">
         <div class="data-grid_content__row" v-for="(row, index) in props.items" :key="index">
           <div v-for="col in props.columns" :key="col.key" class="cell" :class="[`text-${props.gridConfig.textAlign}`]" :style="[{ flex: `0 0 ${col.width}` }, col.style]">
-            {{ row[col.key] }}
+            <div class="inner" v-if="col.component">
+              <component :is="col.component" :row="row"></component>
+            </div>
+            <div class="inner" v-else>
+              {{ row[col.key] }}
+            </div>
           </div>
         </div>
       </div>
@@ -72,13 +77,13 @@ const props = withDefaults(defineProps<IProps>(), {
       display: flex;
       background-color: #f2f8ff;
       border-radius: 10px;
-      padding: 16px 0;
       margin-bottom: 8px;
       .cell {
         color: black;
         flex: 1 1 auto;
+        padding: 16px 0;
         width: 100%;
-        border-inline-end: 1px solid #ffffff;
+        align-content: center;
         &.text-start {
           text-align: start;
         }
@@ -87,6 +92,10 @@ const props = withDefaults(defineProps<IProps>(), {
         }
         &.text-end {
           text-align: end;
+        }
+        .inner {
+          border-inline-end: 1px solid #ffffff;
+          height: 100%;
         }
       }
     }

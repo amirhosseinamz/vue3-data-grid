@@ -8,6 +8,7 @@
 import DataGrid from "./components/DataGrid.vue";
 import {ref} from "vue";
 import {IColumn} from "./utils/interfaces/dataGrid.ts";
+import FirstColumn from "./components/FirstColumn.vue";
 
 const gridConfig = ref()
 const columns = ref<IColumn[]>([
@@ -20,7 +21,8 @@ const columns = ref<IColumn[]>([
   {
     key: "second",
     title: "second",
-    width: "250px"
+    width: "250px",
+    component: FirstColumn,
   },
   {
     key: "third",
